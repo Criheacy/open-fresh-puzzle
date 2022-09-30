@@ -54,7 +54,7 @@ export const LevelInput = (props: InputHTMLAttributes<HTMLInputElement>) => {
   return <LevelInputContainer {...props} />;
 };
 
-export const LevelHint = ({ text }: { text?: string }) => {
+export const LevelHint = ({ text }: { text?: ReactNode }) => {
   return <LevelHintContainer>{text}</LevelHintContainer>;
 };
 
@@ -107,10 +107,11 @@ const LevelHintContainer = styled.div`
   border: 2px solid #ffbd5e;
   border-radius: 0.4rem;
   background-color: #ffbd5e30;
-  padding: 0.6rem 0.8rem;
+  padding: 0.4rem 0.8rem;
   color: #643900;
 
   font-size: 1.1em;
+  line-height: 1.8;
 
   ::before {
     content: "提示：";

@@ -2,21 +2,8 @@ import styled from "@emotion/styled";
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from "react";
 
 export const LevelContainer = ({ children }: { children: ReactNode }) => {
-  return (
-    <LevelBackground>
-      <LevelCard>{children}</LevelCard>
-    </LevelBackground>
-  );
+  return <LevelCard>{children}</LevelCard>;
 };
-
-const LevelBackground = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #f4f4f4;
-`;
 
 const LevelCard = styled.div`
   border-radius: 0.5rem;
@@ -25,7 +12,7 @@ const LevelCard = styled.div`
   width: 30rem;
 
   background-color: #fcfcfc;
-  box-shadow: rgb(0 0 0 / 25%) 0px 25px 50px -12px;
+  box-shadow: rgb(0 0 0 / 25%) 0 25px 50px -12px;
 `;
 
 export const FormContainer = styled.div`

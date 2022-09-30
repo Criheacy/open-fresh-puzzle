@@ -8,16 +8,18 @@ import {
 } from "../components/common";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useLevelTracker } from "../utils/request";
 
 const password = "123456";
 
 const LevelOne = () => {
   const [value, setValue] = useState("");
+  const [trackerState, track] = useLevelTracker(1);
   const navigate = useNavigate();
 
   const onNextLevel = () => {
     if (value === password) {
-      navigate("/level/2");
+      track().then(() => navigate("/level/2"));
     }
   };
 
@@ -32,7 +34,11 @@ const LevelOne = () => {
           onChange={(event) => setValue(event.target.value)}
         />
       </LevelBody>
-      <LevelButton text={"下一关"} onClick={onNextLevel} />
+      <LevelButton
+        text={"下一关"}
+        onClick={onNextLevel}
+        disabled={trackerState.loading}
+      />
     </FormContainer>
   );
 };

@@ -7,8 +7,21 @@ import {
   LevelText,
   LevelTitle,
 } from "../components/common";
+import { useFirstMountState, useMount } from "react-use";
+import { useLevelTracker } from "../utils/request";
 
 const LevelFive = () => {
+  const [trackerState4, track4] = useLevelTracker(4);
+  const [trackerState5, track5] = useLevelTracker(5);
+
+  const firstMount = useFirstMountState();
+  // level 4 jumps to here, so send request on mount
+  useMount(() => {
+    if (firstMount) {
+      track4().then();
+    }
+  });
+
   return (
     <FormContainer>
       <LevelTitle text={"提交第一关的密码以过关"} stage={5} />

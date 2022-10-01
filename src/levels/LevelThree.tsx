@@ -7,9 +7,11 @@ import {
 import { useRef } from "react";
 import { useNavigate } from "react-router";
 import chroma from "chroma-js";
+import { useLevelTracker } from "../utils/request";
 
 const LevelTwo = () => {
   const navigate = useNavigate();
+  const [trackerState, track] = useLevelTracker(3);
   const blockRef = useRef<HTMLDivElement>(null);
 
   const onNextLevel = () => {
@@ -20,7 +22,7 @@ const LevelTwo = () => {
     const [h, s, v] = color.hsv();
     // blue predication
     if (185 <= h && h <= 260 && s >= 0.2 && v >= 0.3) {
-      navigate("/level/4");
+      track().then(() => navigate("/level/4"));
     }
   };
 
@@ -38,7 +40,11 @@ const LevelTwo = () => {
           }}
         />
       </LevelBody>
-      <LevelButton text={"下一关"} onClick={onNextLevel} />
+      <LevelButton
+        text={"下一关"}
+        onClick={onNextLevel}
+        disabled={trackerState.loading}
+      />
     </FormContainer>
   );
 };

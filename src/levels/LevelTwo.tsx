@@ -10,20 +10,22 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import Collapsible from "../components/transition";
+import { useLevelTracker } from "../utils/request";
 
 const password = "123456";
 
 const LevelTwo = () => {
   const navigate = useNavigate();
+  const [trackerState, track] = useLevelTracker(2);
 
   const textRef = useRef<HTMLSpanElement>(null);
 
   const [open, setOpen] = useState(false);
-  setTimeout(() => setOpen(true), 4000);
+  setTimeout(() => setOpen(true), 3000);
 
   const onNextLevel = () => {
     if (textRef.current!.innerText === password) {
-      navigate("/level/3");
+      track().then(() => navigate("/level/3"));
     }
   };
 
@@ -53,7 +55,11 @@ const LevelTwo = () => {
           </LevelBody>
         </Collapsible>
       </CollapsibleContent>
-      <LevelButton text={"下一关"} onClick={onNextLevel} />
+      <LevelButton
+        text={"下一关"}
+        onClick={onNextLevel}
+        disabled={trackerState.loading}
+      />
     </FormContainer>
   );
 };
